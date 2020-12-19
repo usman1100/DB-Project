@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Posts</title>
+</head>
+<body>
+
+    <% if (results.length <= 0) { %>
+     <h1>No data</h1>
+    <% } %>
+
+    <% results.forEach(post => { %>
+        <h1><% post.title %> </h1>
+        <p><% post.body %> </p>
+    <% }) %>
+        
+    
+    
+    
+</body>
+</html>

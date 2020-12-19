@@ -28,15 +28,35 @@ app.get("/submit", (req, res) => {
 app.post("/submit/data/", (req, res) => {
 
     let title = req.body.title;
-    let body_text = req.body.body_text;
+    let body = req.body.body;
 
     let q = `INSERT INTO posts(title, body)
-             VALUES("` + title + `", "` + body_text +` ");`
+             VALUES("` + title + `", "` + body +` ");`
     res.render("index.ejs")
     db.query(q);
-    res.send(title + " " + body_text)
+    res.send(title + " " + body)
   });
 
+
+  app.get("/posts/", (req, res) => {
+
+    q = "SELECT * FROM posts";
+    db.query(q, [true], (error, results, fields) => {
+
+      if(error){
+        res.send("error");
+      }
+
+      console.log(results);
+
+      let data = {"results":results};
+
+      res.render("posts.ejs", data);
+
+
+    })
+
+  })
 
 app.listen(8081, () => {
   console.log("Listening on localhost:8081");
