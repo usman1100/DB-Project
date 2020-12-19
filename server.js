@@ -3,8 +3,9 @@ let mysql = require("mysql");
 let creds = require("./config.js")
 app = express();
 
-let db = mysql.createConnection(creds);
+app.set("view engine", "ejs")
 
+let db = mysql.createConnection(creds);
 
 db.connect((err) => {
   if (err) {
@@ -14,13 +15,8 @@ db.connect((err) => {
   console.log("Connected");
 });
 
-qry = `INSERT INTO posts(title, body)
-       VALUES ("Title of first post", "This is the best I can do")`
-
-db.query(qry)
-
 app.get("/", (req, res) => {
-  res.send("hello");
+  res.render("index.ejs")
 });
 
 app.listen(8081, () => {
