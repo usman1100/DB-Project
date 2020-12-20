@@ -2,6 +2,7 @@ let express = require("express");
 let mysql = require("mysql");
 let creds = require("./config.js");
 let session = require("express-session");
+let date_to_age = require("./utils")
 
 let app = express();
 
@@ -27,6 +28,10 @@ db.connect((err) => {
 });
 
 
+app.get("/", (req, res)=>{
+  res.render("index.ejs");
+})
+
 app.get("/register", (req, res) => {
   res.render("register.ejs")
 })
@@ -34,8 +39,56 @@ app.get("/register", (req, res) => {
 
 app.post("/register/post", (req, res) => {
 
-  console.log(req.body.gender);
-  res.render("register.ejs")
+  console.log(req.body)
+  let errors;
+  let username = req.body.user_name;
+  db.query("SELECT user_name FROM users", [true], (errors, results, fields) => {
+
+    console.log(username);
+    console.log(results);
+
+    
+
+    if(results.length > 0){
+      let usernames = results.map(user => user.user_name);
+      if(usernames.includes(username));
+
+      res.render("error.ejs", {errors:"Usernamae already used"})
+    }
+
+
+
+  })
+
+  let password = req.body.password,
+      email = req.body.email,
+      dob = req.body.dob,
+      age = 0,
+      gender = req.body.gender;
+
+  // age = date_to_age(dob);
+
+  let q = `INSERT INTO users(user_name, email, pass, dob, age, gender)
+           VALUES("`
+           + username + `", "`
+           + email + `", "` 
+           + password + `", "`
+           + dob + `", "`
+           + age.toString() + `", "`
+           + gender + 
+           `");`
+  
+  db.query(q, [true], (errors, results, fields)=>{
+    if(errors)
+    {
+      res.render("error.ejs", {errors:"Username already used"})
+    }
+
+    else
+    {
+      res.render("success.ejs")
+    }
+  });
 
 })
 
