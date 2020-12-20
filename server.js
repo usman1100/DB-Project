@@ -44,77 +44,45 @@ app.get("/success", (req, res) => {
 });
 
 app.post("/register/post", (req, res) => {
-  console.log(req.body);
   let username = req.body.user_name;
-  let found = false;
+  let email = req.body.email;
+
   db.query("SELECT user_name FROM users", [true], (errors, results, fields) => {
-    console.log(username);
-    console.log(results);
+    if (results.length > 0) {
+      let usernames = results.map((user) => user.user_name);
+      let emails = results.map((user) => user.email);
 
-    let usernames = results.map((user) => user.user_name);
-
-    if (usernames.includes(username)) {
-      res.redirect("/error");
-    } 
-    else 
-    {
-      let password = req.body.password,
-        email = req.body.email,
-        dob = req.body.dob,
-        age = 0,
-        gender = req.body.gender;
-
-      let q =
-        `INSERT INTO users(user_name, email, pass, dob, age, gender)
-           VALUES("` +
-        username +
-        `", "` +
-        email +
-        `", "` +
-        password +
-        `", "` +
-        dob +
-        `", "` +
-        age.toString() +
-        `", "` +
-        gender +
-        `");`;
-
-      res.redirect("/success");
+      if (usernames.includes(username || emails.includes(email))) 
+      {
+        return res.render("error.ejs");
+      }
     }
+
+    let password = req.body.password,
+      dob = req.body.dob,
+      age = 0,
+      gender = req.body.gender;
+
+    let q =
+      `INSERT INTO users(user_name, email, pass, dob, age, gender)
+           VALUES("` +
+      username +
+      `", "` +
+      email +
+      `", "` +
+      password +
+      `", "` +
+      dob +
+      `", "` +
+      age.toString() +
+      `", "` +
+      gender +
+      `");`;
+
+    db.query(q);
+    return res.redirect("/success");
   });
 });
-
-// app.post("/submit/data/", (req, res) => {
-//   let title = req.body.title;
-//   let body = req.body.body;
-
-//   let q =
-//     `INSERT INTO posts(title, body)
-//              VALUES("` +
-//     title +
-//     `", "` +
-//     body +
-//     ` ");`;
-//   res.render("index.ejs");
-//   db.query(q);
-//   res.send(title + " " + body);
-// });
-
-// app.get("/posts/", (req, res) => {
-//   q = "SELECT * FROM posts";
-//   db.query(q, [true], (error, results, fields) => {
-//     if (error) {
-//       res.send("error");
-//     }
-
-//     console.log(results);
-
-//     let data = { results: results };
-
-//     res.render("posts.ejs", data);
-//   });
-// });
 
 app.listen(8081, () => {
   console.log("Listening on localhost:8081");
