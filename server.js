@@ -25,57 +25,42 @@ db.connect((err) => {
   console.log("Connected");
 });
 
-app.get("/", (req, res) => {
-  res.render("index.ejs");
-});
 
-app.get("/submit", (req, res) => {
-  res.render("submit.ejs");
-});
+app.get("/register", (req, res) => {
+  res.render("register.ejs")
+})
 
-app.post("/submit/data/", (req, res) => {
-  let title = req.body.title;
-  let body = req.body.body;
+// app.post("/submit/data/", (req, res) => {
+//   let title = req.body.title;
+//   let body = req.body.body;
 
-  let q =
-    `INSERT INTO posts(title, body)
-             VALUES("` +
-    title +
-    `", "` +
-    body +
-    ` ");`;
-  res.render("index.ejs");
-  db.query(q);
-  res.send(title + " " + body);
-});
+//   let q =
+//     `INSERT INTO posts(title, body)
+//              VALUES("` +
+//     title +
+//     `", "` +
+//     body +
+//     ` ");`;
+//   res.render("index.ejs");
+//   db.query(q);
+//   res.send(title + " " + body);
+// });
 
-app.get("/posts/", (req, res) => {
-  q = "SELECT * FROM posts";
-  db.query(q, [true], (error, results, fields) => {
-    if (error) {
-      res.send("error");
-    }
+// app.get("/posts/", (req, res) => {
+//   q = "SELECT * FROM posts";
+//   db.query(q, [true], (error, results, fields) => {
+//     if (error) {
+//       res.send("error");
+//     }
 
-    console.log(results);
+//     console.log(results);
 
-    let data = { results: results };
+//     let data = { results: results };
 
-    res.render("posts.ejs", data);
-  });
-});
+//     res.render("posts.ejs", data);
+//   });
+// });
 
-app.get("/secret/", (req, res) => {
-
-	req.session.user = "usman"
-
-	if (!req.session.user) {
-		res.render("error.ejs");
-	}
-
-	res.render("secret.ejs", {user:req.session.user});
-
-
-});
 
 app.listen(8081, () => {
   console.log("Listening on localhost:8081");
