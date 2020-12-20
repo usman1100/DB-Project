@@ -2,7 +2,8 @@ let express = require("express");
 let mysql = require("mysql");
 let creds = require("./config.js");
 let session = require("express-session");
-let date_to_age = require("./utils");
+let router = require("./router")
+let morgan = require("morgan")
 
 let app = express();
 
@@ -16,6 +17,9 @@ app.use(
     cookie: { secure: true },
   })
 );
+app.use("/", router);
+app.use(morgan("dev"));
+
 
 let db = mysql.createConnection(creds);
 
