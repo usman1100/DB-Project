@@ -35,7 +35,7 @@ app.get("/register", (req, res) => {
 app.post("/register/post", (req, res) => {
 
   console.log(req.body.gender);
-  res.send("Done")
+  res.render("register.ejs")
 
 })
 
