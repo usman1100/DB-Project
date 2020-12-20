@@ -3,7 +3,7 @@ let mysql = require("mysql");
 let creds = require("./config.js");
 let session = require("express-session");
 
-app = express();
+let app = express();
 
 
 app.set("view engine", "ejs");
@@ -17,6 +17,7 @@ app.use(session({
 
 let db = mysql.createConnection(creds);
 
+
 db.connect((err) => {
   if (err) {
     throw err;
@@ -28,6 +29,14 @@ db.connect((err) => {
 
 app.get("/register", (req, res) => {
   res.render("register.ejs")
+})
+
+
+app.post("/register/post", (req, res) => {
+
+  console.log(req.body.gender);
+  res.send("Done")
+
 })
 
 // app.post("/submit/data/", (req, res) => {
