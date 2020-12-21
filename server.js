@@ -9,13 +9,11 @@ let cookieParser = require("cookie-parser");
 let app = express();
 
 app.use("/", router);
-
 app.use(
   session({
     secret: "pp",
-    // resave: false,
-    // saveUninitialized: true,
-    // cookie: { secure: true }
+    resave: false,
+    saveUninitialized: true,
   })
 );
 app.set("view engine", "ejs");
@@ -46,7 +44,6 @@ app.post("/register/post", (req, res) => {
       if (results.length > 0) {
         let usernames = results.map((user) => user.user_name);
         let emails = results.map((user) => user.email);
-        console.log(emails);
 
         if (usernames.includes(username) || emails.includes(email)) {
           return res.render("error.ejs");
@@ -98,15 +95,18 @@ app.post("/login/post", (req, res) => {
   })
 
   req.session.username = username;
-  console.log(req.session.username);
 
   return res.redirect("/home");
 })
 
+app.get("/logout",(req, res) => {
+
+  req.session.username = undefined;
+  res.redirect("/login");
+
+})
 
 app.get("/home", (req, res)=>{
-
-  console.log(req.session.username);
 
   
   if(req.session.username)
