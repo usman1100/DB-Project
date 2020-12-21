@@ -1,4 +1,6 @@
+const { renderFile } = require("ejs");
 let express = require("express");
+let session = require("express-session")
 let router = express.Router();
 
 router.get("/hello", (req, res) => {
@@ -25,5 +27,7 @@ router.get("/error", (req, res) => {
 router.get("/success", (req, res) => {
   res.render("success.ejs");
 });
+
+
 
 module.exports = router;

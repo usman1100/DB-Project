@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wall</title>
+</head>
+<body>
+
+    <% if (posts.length == 0) { %>
+     <h1>You have not posted anything yet</h1>
+     <p>Click here to <a href="/post">post</a></p>
+    <% } %>
+    
+    <% posts.forEach(post => { %>
+        
+        <p>Posted by   <b><%= post.posted_by %></b> </p>
+        <h1><%= post.title %></h1>
+        <p><%= post.body %> </p>
+        <p>Likes <b><%= post.likes %></b></p>
+
+
+    <% }) %>
+    
+
+
+</body>
+</html>

@@ -8,7 +8,7 @@ let cookieParser = require("cookie-parser");
 
 let app = express();
 
-app.use("/", router);
+app.use(cookieParser("pp"));
 app.use(
   session({
     secret: "pp",
@@ -16,9 +16,9 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.use("/", router);
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser("pp"));
 app.use(morgan("dev"));
 
 let db = mysql.createConnection(creds);
@@ -30,8 +30,6 @@ db.connect((err) => {
 
   console.log("Connected");
 });
-
-
 
 app.post("/register/post", (req, res) => {
   let username = req.body.user_name;
@@ -78,42 +76,52 @@ app.post("/register/post", (req, res) => {
 });
 
 app.post("/login/post", (req, res) => {
-
   let username = req.body.user_name;
   let password = req.body.password;
-  let q = `SELECT user_name, pass from users
-          WHERE user_name = "` + username + `" AND pass = "` + password + `";`;
-  db.query(q, [true], (errors, results, fields) =>{
-
-
-    if(results.length != 1){
+  let q =
+    `SELECT user_name, pass from users
+          WHERE user_name = "` +
+    username +
+    `" AND pass = "` +
+    password +
+    `";`;
+  db.query(q, [true], (errors, results, fields) => {
+    if (results.length != 1) {
       return res.redirect("/error");
     }
 
-    
+    req.session.username = username;
+    console.log(results);
+
+    return res.redirect("/home");
+  });
+});
+
+app.get("/logout", (req, res) => {
+  req.session.username = undefined;
+  res.redirect("/login");
+});
+
+app.get("/home", (req, res) => {
+  if (req.session.username){
+    console.log(req.body);
+    return res.render("home.ejs", { username: req.session.username });
+  }
+  else return res.redirect("/error");
+});
+
+app.get("/wall", (req, res) => {
+
+  let q = `SELECT * FROM posts WHERE posted_by = "`+ req.session.username + '";';
+
+  db.query(q, [true], (errors, results, fields) =>{
+
+    res.render("wall.ejs", {posts:results})
+
 
   })
 
-  req.session.username = username;
 
-  return res.redirect("/home");
-})
-
-app.get("/logout",(req, res) => {
-
-  req.session.username = undefined;
-  res.redirect("/login");
-
-})
-
-app.get("/home", (req, res)=>{
-
-  
-  if(req.session.username)
-    return res.render("home.ejs", {username:req.session.username});
-
-  else
-    return res.redirect("/error")
 })
 
 
