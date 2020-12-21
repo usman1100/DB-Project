@@ -14,6 +14,10 @@ router.get("/register", (req, res) => {
   res.render("register.ejs");
 });
 
+router.get("/login", (req, res) => {
+  res.render("login.ejs");
+});
+
 router.get("/error", (req, res) => {
   res.render("error.ejs");
 });

@@ -4,20 +4,23 @@ let creds = require("./config.js");
 let session = require("express-session");
 let router = require("./router");
 let morgan = require("morgan");
+let cookieParser = require("cookie-parser");
 
 let app = express();
 
-app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: false }));
+app.use("/", router);
+
 app.use(
   session({
     secret: "pp",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true },
+    // resave: false,
+    // saveUninitialized: true,
+    // cookie: { secure: true }
   })
 );
-app.use("/", router);
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser("pp"));
 app.use(morgan("dev"));
 
 let db = mysql.createConnection(creds);
@@ -76,6 +79,43 @@ app.post("/register/post", (req, res) => {
     }
   );
 });
+
+app.post("/login/post", (req, res) => {
+
+  let username = req.body.user_name;
+  let password = req.body.password;
+  let q = `SELECT user_name, pass from users
+          WHERE user_name = "` + username + `" AND pass = "` + password + `";`;
+  db.query(q, [true], (errors, results, fields) =>{
+
+
+    if(results.length != 1){
+      return res.redirect("/error");
+    }
+
+    
+
+  })
+
+  req.session.username = username;
+  console.log(req.session.username);
+
+  return res.redirect("/home");
+})
+
+
+app.get("/home", (req, res)=>{
+
+  console.log(req.session.username);
+
+  
+  if(req.session.username)
+    return res.render("home.ejs", {username:req.session.username});
+
+  else
+    return res.redirect("/error")
+})
+
 
 app.listen(8081, () => {
   console.log("Listening on localhost:8081");
