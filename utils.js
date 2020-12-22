@@ -1,8 +1,22 @@
-function date_to_age(birthday) { // birthday is a date
-    birthday = Date(birthday);
-    var ageDifMs = Date.now() - birthday.getTime();
-    var ageDate = new Date(ageDifMs); // miliseconds from epoch
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
+const get_current_date = () => {
+
+    let date_ob = new Date();
+
+    // current date
+    // adjust 0 before single digit date
+    let date = ("0" + date_ob.getDate()).slice(-2);
+
+    // current month
+    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+
+    // current year
+    let year = date_ob.getFullYear();
+
+    let new_date = year + "-" + month + "-" + date;
+
+    return new_date;
+
 }
 
-module.exports = date_to_age;
+
+module.exports = get_current_date;

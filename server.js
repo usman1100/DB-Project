@@ -5,6 +5,7 @@ let session = require("express-session");
 let router = require("./router");
 let morgan = require("morgan");
 let cookieParser = require("cookie-parser");
+let get_current_date = require("./utils")
 
 let app = express();
 
@@ -120,6 +121,32 @@ app.get("/wall", (req, res) => {
 
 
   })
+
+
+})
+
+
+app.post("/create_post/post", (req, res) => {
+
+  let posted_by = req.session.username;
+  let date = get_current_date();
+  let likes = 0;
+  let body = req.body.body;
+  let title = req.body.title;
+
+
+  let q = `INSERT INTO posts(posted_by, date_created, likes, body, title)
+            VALUES("`
+            + posted_by + `", "`
+            + date + `", "`
+            + likes.toString() + `", "`
+            + body + `", "`
+            + title + `");`
+
+
+
+  db.query(q);
+  return res.redirect("/wall");
 
 
 })

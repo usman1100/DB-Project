@@ -28,6 +28,10 @@ router.get("/success", (req, res) => {
   res.render("success.ejs");
 });
 
+router.get("/create_post", (req, res) => {
 
+  res.render("create_post.ejs");
+
+})
 
 module.exports = router;
