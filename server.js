@@ -88,7 +88,7 @@ app.post("/login/post", (req, res) => {
     `";`;
   db.query(q, [true], (errors, results, fields) => {
     if (results.length != 1) {
-      return res.redirect("/error");
+      return res.render("error", {errors:["Username or Password Incorrect"]});
     }
 
     req.session.username = username;
@@ -108,7 +108,7 @@ app.get("/home", (req, res) => {
     console.log(req.body);
     return res.render("home.ejs", { username: req.session.username });
   }
-  else return res.redirect("/error");
+  else return res.render("error.ejs", {errors:["You are not logged in"]});
 });
 
 app.get("/wall", (req, res) => {
@@ -149,6 +149,25 @@ app.post("/create_post/post", (req, res) => {
   return res.redirect("/wall");
 
 
+})
+
+app.post("/search/post", (req, res)=>{
+
+  let search_username = req.body.username;
+  let q1 = `SELECT * FROM users WHERE user_name LIKE "%` + search_username + `%";`;
+
+  db.query(q1, [true], (errors, results, fields)=>{
+
+    if(results.length == 0)
+      return res.render("error.ejs", {results:results});
+
+    
+    
+      console.log(results);
+    return res.render("searched_users.ejs", {results:results});
+  })
+
+  
 })
 
 

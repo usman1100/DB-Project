@@ -8,7 +8,17 @@
 <body>
     
 
-    <h1>Error</h1>
+    <% if (!errors) { %>
+        <h1>An error occurred</h1>
+    <%} else { %>
+        
+        <% errors.forEach(element => { %>
+            <h1><%= element %> </h1>
+        <% }) %>
+
+    <% } %>
+    
+    
     <a href="/register">Register</a>
 
 

@@ -34,4 +34,14 @@ router.get("/create_post", (req, res) => {
 
 })
 
+
+router.get("/search", (req, res)=>{
+
+  if(req.session.username)
+    return res.render("search.ejs");
+
+  return res.render("error.ejs");
+  
+
+})
 module.exports = router;
