@@ -4,35 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Raleway">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="nav.css">
 </head>
 <body>
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-light">
+	<a class="navbar-brand" href="#">UF<b>Brothers</b></a>  		
+	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<!-- Collection of nav links, forms, and other content for toggling -->
+	<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+		<div class="navbar-nav">
+			<a href="#" class="nav-item nav-link">Home</a>
+			<a href="#" class="nav-item nav-link">About</a>			
+			<div class="nav-item dropdown">
+				<a href="#" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown">Services</a>
+				<div class="dropdown-menu">					
+					<a href="#" class="dropdown-item">Web Design</a>
+					<a href="#" class="dropdown-item">Web Development</a>
+					<a href="#" class="dropdown-item">Graphic Design</a>
+					<a href="#" class="dropdown-item">Digital Marketing</a>
+                </div>
+            </div>
+			<a href="#" class="nav-item nav-link">Portfolio</a>
+			<a href="#" class="nav-item nav-link active">Blog</a>
+			<a href="#" class="nav-item nav-link">Contact</a>
+        </div>
+		<div class="navbar-nav ml-auto">
+			<div class="navbar-form-wrapper">
+				<form class="navbar-form form-inline">
+					<div class="input-group search-box">								
+						<input type="text" id="search" class="form-control" placeholder="Search Here...">
 
-   
-    
+							<span class="input-group-text">
+								<i class="material-icons">&#xE8B6;</i>
+							</span>
+						
+					</div>
+                </form>
+            </div>
+			<a href="#" class="nav-item nav-link"><i class="fa fa-facebook"></i></a>
+			<a href="#" class="nav-item nav-link"><i class="fa fa-twitter"></i></a>
+			<a href="#" class="nav-item nav-link"><i class="fa fa-google-plus"></i></a>
+			<a href="#" class="nav-item nav-link"><i class="fa fa-pinterest-p"></i></a>
+        </div>		
+	</div>
+</nav>
+            <!--Login -->
+            <div class="container-fluid">
+                <div class="row main-content bg-success text-center">
+                    <div class="col-md-4 text-center company__info">
+                        <span class="company__logo"><h2><span class="fa fa-android"></span></h2></span>
+                        <h4 class="company_title">UF Brothers</h4>
+                    </div>
+                    <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <h2>Log In</h2>
+                            </div>
+                            <div class="row">
+                                <form action="/login/post" method="post" class="form-group">
+                                    <div class="row">
+                                       
+                                        <input class="form__input" type="text" id="user_name" name="user_name" placeholder=" Username" required max="10"/>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <!-- <span class="fa fa-lock"></span> -->
+                                        <input class="form__input" type="password" id="password" name="password" placeholder="Password" required max="20"/>
+                                    </div>
+                                    <div class="row">
+                                        <input type="checkbox" name="remember_me" id="remember_me" class="">
+                                        <label for="remember_me">Remember Me!</label>
+                                    </div>
+                                    <div class="row">
+                                        <input type="submit" value="Submit" class="btn">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="row">
+                                <p>Don't have an account? <a href="#">Register Here</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="container-fluid text-center footer">
+                Coded with &hearts; by <a href="#">UF Brothers</a></p>
+            </div>
 
-    <form action="/login/post" method="post">
-
-        <!-- User Name -->
-        <label for="user_name">User Name</label>
-        <input type="text" id="user_name" name="user_name" required max="10"/>
-        <br />
-
-        <!-- Password -->
-
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required max="20"/>
-        <br />
-        
-        <button type="submit">Login</button>
-
-        <button class="btn btn-success" type="submit">
-            Submit
-        </button>
-        
-        
-    </form>
-
-</body>
-</html>
+      
+        </body>
+        </html>
