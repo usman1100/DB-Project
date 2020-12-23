@@ -21,6 +21,9 @@ app.use("/", router);
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
+app.use(express.static(__dirname + '/public'));
+
+
 
 let db = mysql.createConnection(creds);
 
