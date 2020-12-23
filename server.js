@@ -147,7 +147,7 @@ app.post("/create_post/post", (req, res) => {
         `");`;
 
     db.query(q);
-    return res.redirect("/wall");
+    return res.redirect("/home");
 });
 
 app.post("/search/post", (req, res) => {
@@ -166,7 +166,7 @@ app.post("/search/post", (req, res) => {
 
 app.get("/profile/:username", (req, res) => {
     let q =
-        `SELECT user_name, email, dob, age, gender,null as COL6, null as COL7, null as COL8, null as COL9, null as COL10 FROM users 
+        `SELECT user_name, email, dob, age, gender,null as post_id, null as posted_by, null as likes, null as title, null as body FROM users 
          WHERE users.user_name = "` + req.params.username + `"`
 
          +
@@ -186,6 +186,26 @@ app.get("/profile/:username", (req, res) => {
         res.send(q);
     });
 });
+
+
+app.get("/post/:postid", (req, res)=>{
+
+    let postid = req.params.postid;
+    let q = 
+    `
+    SELECT * FROM posts 
+    WHERE post_id = "
+    `
+     + postid + `";`
+
+    db.query(q, [true], (error, results, fields) => {
+
+        return res.render("post.ejs", {post:results[0]});
+
+    })
+
+
+} )
 
 app.listen(8081, () => {
     console.log("Listening on localhost:8081");

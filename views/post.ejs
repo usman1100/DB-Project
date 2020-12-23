@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= post.title %> </title>
+</head>
+<body>
+    
+
+    <div class="jumbotron">
+        <h1 class="display-3"><%= post.title %></h1>
+        <p>Posted on: <%= post.date_created %> </p>
+        <div>
+            <i class="fas fa-thumbs-up fa-2x"></i>
+            Like <%= post.likes %> 
+        </div>
+    </div>
+
+    <div class="container mx-5">
+
+        <h3 class="display-5 "><%= post.body %> </h3>
+
+    </div>
+
+
+</body>
+</html>
