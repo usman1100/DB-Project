@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+    <title> <%=user[0].user_name%>  </title>
+</head>
+<body>
+
+    <!-- Users is an array of made by a UNIION query -->
+    <!-- First object in the array is the user's info -->
+    <!-- Rest are the posts of the user -->
+
+    <!-- Showing User info -->
+    <h1> <%= user[0].user_name %> </h1>
+
+    <a href="mailto:<%= user[0].email %>">Send Email</a>
+    <h3>Birthday: <%= user[0].dob %> </h3>
+
+
+    <h1>Posts by user</h1>
+
+    <!-- Loop from 2nd element to last -->
+    <% for( let i = 1; i < user.length; i++)  { %>
+
+        <h3><%= user[i].title %> </h3>
+
+    <% } %>
+
+
+
+
+
+    
+
+
+    
+</body>
+</html>

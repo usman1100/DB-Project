@@ -5,10 +5,12 @@ let session = require("express-session");
 let router = require("./router");
 let morgan = require("morgan");
 let cookieParser = require("cookie-parser");
-let get_current_date = require("./utils")
+let utils = require("./utils")
 
 let app = express();
 
+
+app.use(express.static(__dirname + '/public'));
 app.use(cookieParser("pp"));
 app.use(
   session({
@@ -21,7 +23,6 @@ app.use("/", router);
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
-app.use(express.static(__dirname + '/public'));
 
 
 
@@ -48,7 +49,7 @@ app.post("/register/post", (req, res) => {
         let emails = results.map((user) => user.email);
 
         if (usernames.includes(username) || emails.includes(email)) {
-          return res.render("error.ejs");
+          return res.render("error.ejs", {errors:[]});
         }
       }
 
@@ -132,7 +133,7 @@ app.get("/wall", (req, res) => {
 app.post("/create_post/post", (req, res) => {
 
   let posted_by = req.session.username;
-  let date = get_current_date();
+  let date = utils.get_current_date();
   let likes = 0;
   let body = req.body.body;
   let title = req.body.title;
@@ -162,7 +163,7 @@ app.post("/search/post", (req, res)=>{
   db.query(q1, [true], (errors, results, fields)=>{
 
     if(results.length == 0)
-      return res.render("error.ejs", {results:results});
+      return res.render("error.ejs", {errors:["No users found"]});
 
     
     
@@ -171,6 +172,27 @@ app.post("/search/post", (req, res)=>{
   })
 
   
+})
+
+app.get("/profile/:username", (req, res) => {
+
+  let q = `SELECT * FROM posts, users 
+           WHERE users.user_name = "`
+           +req.params.username +`"; `
+          
+  
+  db.query(q, [true], (errors, results, fields)=>{
+
+    // Formatting date into MM-DD-YYYY format
+    results[0].dob = utils.get_formated_date(results[0].dob);
+
+
+    return res.render("profile.ejs", {user:results});
+
+  })
+
+          
+
 })
 
 
