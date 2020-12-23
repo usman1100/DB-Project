@@ -21,7 +21,7 @@ router.get("/login", (req, res) => {
 });
 
 router.get("/error", (req, res) => {
-  res.render("error.ejs");
+  res.render("error.ejs", {errors:[]});
 });
 
 router.get("/success", (req, res) => {
@@ -40,7 +40,7 @@ router.get("/search", (req, res)=>{
   if(req.session.username)
     return res.render("search.ejs");
 
-  return res.render("error.ejs");
+  return res.render("error.ejs", {errors:["Cant search. User not logged in"]});
   
 
 })

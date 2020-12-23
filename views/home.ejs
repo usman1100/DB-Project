@@ -3,25 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= username %> </title>
 </head>
 <body>
 
     <div class="jumbotron bg-dark text-light">
+
+        
         <h1 class="display-1">Welcome <%= username %> </h1>
 
-        <button class="btn btn-light"><a href="/logout">
-            Logout
-        </a></button>
+        <button class="btn btn-light">
+            <a href="/logout">
+                <i class="fas fa-power-off"></i>
+                Logout
+            </a>
+        </button>
 
-        <button class="btn btn-light"><a href="/create_post">
-            Create new post
-        </a></button>
 
-        <button class="btn btn-light"><a href="/search">
-            Search
-        </a></button>
+
+        <button class="btn btn-light">
+            <a href="/create_post">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Create new post
+            </a>
+        </button>
+
+
+
+        <button class="btn btn-light">
+            <a href="/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                Search
+            </a>
+        </button>
+
+
+
 
     </div>
 

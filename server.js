@@ -46,7 +46,7 @@ app.post("/register/post", (req, res) => {
                 let emails = results.map((user) => user.email);
 
                 if (usernames.includes(username) || emails.includes(email)) {
-                    return res.render("error.ejs", { errors: [] });
+                    return res.render("error.ejs", { errors: [""] });
                 }
             }
 
@@ -125,15 +125,6 @@ app.get("/home", (req, res) => {
         return res.render("error.ejs", { errors: ["You are not logged in"] });
 });
 
-// app.get("/wall", (req, res) => {
-//     let q =
-//         `SELECT * FROM posts WHERE posted_by = "` + req.session.username + '";';
-
-//     db.query(q, [true], (errors, results, fields) => {
-//         res.render("wall.ejs", { posts: results });
-//     });
-// });
-
 app.post("/create_post/post", (req, res) => {
     let posted_by = req.session.username;
     let date = utils.get_current_date();
@@ -175,16 +166,24 @@ app.post("/search/post", (req, res) => {
 
 app.get("/profile/:username", (req, res) => {
     let q =
-        `SELECT * FROM posts, users 
-           WHERE users.user_name = "` +
-        req.params.username +
-        `"; `;
+        `SELECT user_name, email, dob, age, gender,null as COL6, null as COL7, null as COL8, null as COL9, null as COL10 FROM users 
+         WHERE users.user_name = "` + req.params.username + `"`
+
+         +
+         ` UNION ALL `
+         +
+
+         `SELECT null as COL1, null as COL2, null as COL3, null as COL4, null as COL5, post_id, posted_by, likes, title, body FROM posts
+         WHERE posts.posted_by = "` + req.params.username + `";`
+         
 
     db.query(q, [true], (errors, results, fields) => {
         // Formatting date into MM-DD-YYYY format
         results[0].dob = utils.get_formated_date(results[0].dob);
 
         return res.render("profile.ejs", { user: results });
+
+        res.send(q);
     });
 });
 

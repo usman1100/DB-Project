@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
     <link rel="stylesheet" href="/bootstrap.min.css">
     <title>
         <%=user[0].user_name%>
@@ -36,7 +38,31 @@
 
         <h3>Age: <%= user[0].age %> </h3>
 
-        <button class="btn btn-light">
+        
+
+
+        <div>
+        
+            <% switch (user[0].gender) {
+                case 'male': %>
+                        <i class="fas fa-mars fa-2x my-1"></i>
+                        <% break;
+                
+                case 'female': %>
+                        <i class="fa fa-venus fa-2x my-1"></i>
+                        <% break;
+                
+                case 'other': %>
+                        <i class="fa fa-transgender fa-2x my-1"></i>
+                        <% break;
+                
+            } %>
+            
+
+        </div>
+
+
+        <button class="btn btn-light my-1">
             <a href="mailto:<%= user[0].email %>">
                 Send Email
             </a>
@@ -45,8 +71,12 @@
 
     </div>
 
+    
 
-    <div class="container-fluid my-4">
+    <% if (user.length > 1) { %>
+
+
+        <div class="container-fluid my-4">
 
         <h1 class="display-3 my-5">Posts by user</h1>
 
@@ -61,7 +91,12 @@
 
         <% } %>
 
-    </div>
+        </div>
+
+         
+    <% } %>
+
+    
 
 
 
