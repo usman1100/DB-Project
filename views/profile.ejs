@@ -14,6 +14,13 @@
 
     <div class="jumbotron bg-dark text-light">
 
+
+        <button class="btn btn-light">
+            <a href="javascript:history.back()">
+                Back
+            </a>
+        </button>
+
         <!-- Users is an array of made by a UNIION query -->
         <!-- First object in the array is the user's info -->
         <!-- Rest are the posts of the user -->
@@ -41,7 +48,7 @@
 
     <div class="container-fluid my-4">
 
-        <h1 class="display-2 my-5">Posts by user</h1>
+        <h1 class="display-3 my-5">Posts by user</h1>
 
         <!-- Loop from 2nd element to last -->
         <% for( let i=1; i < user.length; i++) { %>
