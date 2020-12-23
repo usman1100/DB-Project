@@ -55,7 +55,6 @@ app.post("/register/post", (req, res) => {
                 age = utils.get_age(dob),
                 gender = req.body.gender;
 
-
             let q =
                 `INSERT INTO users(user_name, email, pass, dob, age, gender)
            VALUES("` +
@@ -109,20 +108,31 @@ app.get("/logout", (req, res) => {
 
 app.get("/home", (req, res) => {
     if (req.session.username) {
-        console.log(req.body);
-        return res.render("home.ejs", { username: req.session.username });
+        let q =
+            `SELECT * FROM posts WHERE posted_by = "` +
+            req.session.username +
+            '";';
+
+        db.query(q, [true], (errors, results, fields) => {
+            return res.render("home.ejs", {
+                username: req.session.username,
+                posts: results,
+            });
+        });
+
+        // return res.render("home.ejs", { username: req.session.username });
     } else
         return res.render("error.ejs", { errors: ["You are not logged in"] });
 });
 
-app.get("/wall", (req, res) => {
-    let q =
-        `SELECT * FROM posts WHERE posted_by = "` + req.session.username + '";';
+// app.get("/wall", (req, res) => {
+//     let q =
+//         `SELECT * FROM posts WHERE posted_by = "` + req.session.username + '";';
 
-    db.query(q, [true], (errors, results, fields) => {
-        res.render("wall.ejs", { posts: results });
-    });
-});
+//     db.query(q, [true], (errors, results, fields) => {
+//         res.render("wall.ejs", { posts: results });
+//     });
+// });
 
 app.post("/create_post/post", (req, res) => {
     let posted_by = req.session.username;
@@ -171,8 +181,6 @@ app.get("/profile/:username", (req, res) => {
         `"; `;
 
     db.query(q, [true], (errors, results, fields) => {
-
-
         // Formatting date into MM-DD-YYYY format
         results[0].dob = utils.get_formated_date(results[0].dob);
 
