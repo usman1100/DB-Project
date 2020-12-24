@@ -14,17 +14,27 @@
     <div class="jumbotron">
 
         <button class="btn btn-light">
-            <a href="javascript:history.back()">
+            <a href="/home">
                 Back
             </a>
         </button>
 
         <h1 class="display-3"><%= post.title %></h1>
-        <p>Posted on: <%= post.date_created %> </p>
-        <div>
-            <i class="fas fa-thumbs-up fa-2x"></i>
-            Like <%= post.likes %> 
-        </div>
+        <h5>Posted on: <%= post.date_created %> </h5>
+        <span>
+            <form action="/like/:postid" method="post">
+
+                <input type="number"
+                        value="<%= post.post_id %>"
+                        name="postid"
+                        hidden>
+
+                <button name="postid" class="btn">
+                    <i class="fas fa-thumbs-up fa-2x"></i>
+                    Likes <%= post.likes %> 
+                </button>
+            </form>
+        </span>
     </div>
 
     <div class="container mx-5">

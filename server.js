@@ -210,6 +210,24 @@ app.get("/post/:postid", (req, res)=>{
 
 } )
 
+
+app.post("/like/:postid", (req, res) => {
+
+    let postid = req.body.postid[0];
+    let q =
+    `
+    UPDATE posts
+    SET likes = likes + 1
+    WHERE post_id = 
+    `
+     + postid + `;`
+
+     db.query(q);
+
+     res.redirect("/post/" + postid);
+
+})
+
 app.listen(8081, () => {
     console.log("Listening on localhost:8081");
 });
