@@ -61,30 +61,57 @@
         </div>		
 	</div>
 </nav>
-            <!--Home pages -->
+            <!--Login -->
+            <div class="container-fluid">
+                <div class="row main-content bg-success text-center">
+                    <div class="col-md-4 text-center company__info">
+                        <span class="company__logo"><h2><span class="fa fa-android"></span></h2></span>
+                        <h4 class="company_title">UF Brothers</h4>
+                    </div>
+                    <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <h2>Sign Up</h2>
+                            </div>
+                            <div class="row">
+                                <form action="/login/post" method="post" class="form-group">
+                                    <div class="row">
+                                    <input type="text" class="form__input" id="user_name" name="user_name" placeholder="Username" required max="10"/>
+                                    </div>
+                                    <div class="row">
+                                    <input class="form__input" type="email" id="email" name="email" placeholder="Email" required max="50"/>
+                                </div>
 
-<h1>Welcome user </h1>
-    <button><a href="/wall">Wall</a></button>
-    <button><a href="/logout">Logout</a></button>
-    <button><a href="/create_post">Create new post</a></button>
-    <button><a href="/search">Search</a></button>           
+                                    <div class="row">
+                                        <input class="form__input" type="password" id="password" name="password" placeholder="Password" required max="20"/>
+    
+                                    </div>
+                                    <div class="row">
+                                        <input class="form__input" type="date" id="dob" name="dob" min="1920-01-01" max="2002-01-01"  required />
+                                    </div>
+                                    <div class="row">
+                                        <select class="form__input" id="gender" name="gender" required>
+                                            <option  disabled selected>--Select your Gender--</option>
+                                            <option value="female">Female</option>
+                                            <option value="male">Male</option>
+                                            <option value="other">Other</option>
+                                        </select>                                  
+                                    </div>
+                                    <div class="row">
+                                        <input type="submit" value="Submit" class="btn">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="row">
+                                <p>if you have an account? <a href="startup_page.html">Login Here</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Footer -->
             <div class="container-fluid text-center footer">
                 Coded with &hearts; by <a href="#">UF Brothers</a></p>
-            </div>
-
-      
+            </div>      
         </body>
         </html>
-
-
-
-
-
-
-
-
-
-
-
-
