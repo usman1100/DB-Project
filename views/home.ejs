@@ -2,14 +2,86 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><%= username %> </title>
 </head>
 <body>
-    <h1>Welcome <%= username %> </h1>
-    <button><a href="/wall">Wall</a></button>
-    <button><a href="/logout">Logout</a></button>
-    <button><a href="/create_post">Create new post</a></button>
-    <button><a href="/search">Search</a></button>
+
+    <div class="jumbotron bg-dark text-light">
+
+        
+        <h1 class="display-1">Welcome <%= username %> </h1>
+
+
+        <!-- Logout Button -->
+
+        <button class="btn btn-light">
+            <a href="/logout">
+                <i class="fas fa-power-off"></i>
+                Logout
+            </a>
+        </button>
+
+
+        
+        <button class="btn btn-light">
+            <a href="/create_post">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Create new post
+            </a>
+        </button>
+
+
+
+        <form action="/search/post" method="post">
+
+            <input id="username" name="username" type="text" class="form-control my-4" required>
+            <button class="btn btn-light my-2" type="submit">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    Search User
+            </button>
+
+
+        </form>
+
+
+
+
+    </div>
+
+    
+
+    <!-- Posts -->
+
+
+
+    <div class="container-fluid my-4">
+
+        <h1 class="display-5 my-5 underline">Your recent posts</h1>
+
+
+        <% if (posts.length == 0) { %>
+            <h1>You have not posted anything yet</h1>
+            <p>Click here to <a href="/create_post">post</a></p>
+        <% } %>
+       
+       <% posts.forEach(post => { %>
+           
+        <div class="container-fluid my-5 border p-3">
+
+            <h3>
+                <%= post.title %>
+            </h3>
+
+            <p><a href="/post/<%= post.post_id %>">See post</a></p>
+
+
+        </div>
+        <% }) %>
+
+    </div>
+
 </body>
 </html>

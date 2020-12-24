@@ -1,5 +1,4 @@
 const get_current_date = () => {
-
     let date_ob = new Date();
 
     // current date
@@ -15,8 +14,55 @@ const get_current_date = () => {
     let new_date = year + "-" + month + "-" + date;
 
     return new_date;
+};
+
+const get_formated_date = (date_unf) => {
+    let date = String(date_unf);
+    return date.slice(3, 15);
+};
+
+const get_age = dob => {
+
+    let year_a = Number(dob.slice(0, 4));
+    let year_b = Number(new Date().toString().slice(11, 16));
+
+    let age = year_b - year_a;
+    return age;
+
 
 }
 
+const clean_sql = (str) => {
+    return str.replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, function (char) {
+        switch (char) {
+            case "\0":
+                return "\\0";
+            case "\x08":
+                return "\\b";
+            case "\x09":
+                return "\\t";
+            case "\x1a":
+                return "\\z";
+            case "\n":
+                return "\\n";
+            case "\r":
+                return "\\r";
+            case "\"":
+            case "'":
+            case "\\":
+            case "%":
+                return "\\"+char; // prepends a backslash to backslash, percent,
+                                  // and double/single quotes
+            default:
+                return char;
+        }
+    });
+}
 
-module.exports = get_current_date;
+
+module.exports = {
+    get_current_date: get_current_date,
+    get_formated_date: get_formated_date,
+    get_age:get_age,
+    clean_sql:clean_sql
+};

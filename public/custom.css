@@ -1,0 +1,9 @@
+body{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.hover-2x:hover{
+    transition: 0.2s;
+    transform: scale(1.2);
+}

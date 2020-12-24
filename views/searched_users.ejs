@@ -16,7 +16,12 @@
         <h1>Search Results</h1>
         <% results.forEach(user => { %>
 
-            <h3><%= user.user_name %> </h3>
+            <h2><%= user.user_name %> </h2>
+            <small>
+                <a href="/profile/<%= user.user_name %> ">
+                Go to profile
+                </a>
+            </small>
 
         <% }) %>
 

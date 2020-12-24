@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <title>
+        <%=user[0].user_name%>
+    </title>
+</head>
+
+<body>
+
+    <div class="jumbotron bg-dark text-light">
+
+
+        <button class="btn btn-light">
+            <a href="javascript:history.back()">
+                Back
+            </a>
+        </button>
+
+        <!-- Users is an array of made by a UNIION query -->
+        <!-- First object in the array is the user's info -->
+        <!-- Rest are the posts of the user -->
+
+        <!-- Showing User info -->
+        <h1 class="display-1">
+            <%= user[0].user_name %>
+        </h1>
+
+
+        <h3>Birthday: <%= user[0].dob %>
+        </h3>
+
+        <h3>Age: <%= user[0].age %> </h3>
+
+        
+
+
+        <div>
+        
+            <% switch (user[0].gender) {
+                case 'male': %>
+                        <i class="fas fa-mars fa-2x my-1"></i>
+                        <% break;
+                
+                case 'female': %>
+                        <i class="fa fa-venus fa-2x my-1"></i>
+                        <% break;
+                
+                case 'other': %>
+                        <i class="fa fa-transgender fa-2x my-1"></i>
+                        <% break;
+                
+            } %>
+            
+
+        </div>
+
+
+        <button class="btn btn-light my-1">
+            <a href="mailto:<%= user[0].email %>">
+                Send Email
+            </a>
+        </button>
+
+
+    </div>
+
+    
+
+    <% if (user.length > 1) { %>
+
+
+        <div class="container-fluid my-4">
+
+        <h1 class="display-3 my-5">Posts by user</h1>
+
+        <!-- Loop from 2nd element to last -->
+        <% for( let i=1; i < user.length; i++) { %>
+            <div class="container-fluid my-5 border p-3">
+                <h3>
+                    <%= user[i].title %>
+                </h3>
+                <p><a href="/post/<%= user[i].post_id %>">See post</a></p>
+            </div>
+
+        <% } %>
+
+        </div>
+
+         
+    <% } %>
+
+    
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
