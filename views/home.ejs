@@ -32,12 +32,16 @@
 
 
 
-        <button class="btn btn-light">
-            <a href="/search">
-                <i class="fa fa-search" aria-hidden="true"></i>
-                Search
-            </a>
-        </button>
+        <form action="/search/post" method="post">
+
+            <input id="username" name="username" type="text" class="form-control my-4" required>
+            <button class="btn btn-light my-2" type="submit">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    Search User
+            </button>
+
+
+        </form>
 
 
 
