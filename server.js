@@ -96,7 +96,6 @@ app.post("/login/post", (req, res) => {
         }
 
         req.session.username = username;
-        console.log(results);
 
         return res.redirect("/home");
     });
@@ -162,7 +161,7 @@ app.post("/search/post", (req, res) => {
         if (results.length == 0)
             return res.render("error.ejs", { errors: ["No users found"] });
 
-        console.log(results);
+
         return res.render("searched_users.ejs", { results: results });
     });
 });
