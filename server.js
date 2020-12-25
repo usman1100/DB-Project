@@ -158,8 +158,8 @@ app.post("/search/post", (req, res) => {
         `SELECT * FROM users WHERE user_name LIKE "%` + search_username + `%";`;
 
     db.query(q1, [true], (errors, results, fields) => {
-        if (results.length == 0)
-            return res.render("error.ejs", { errors: ["No users found"] });
+        // if (results.length == 0)
+        //     return res.render("error.ejs", { errors: ["No users found"] });
 
 
         return res.render("searched_users.ejs", { results: results });

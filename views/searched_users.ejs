@@ -1,33 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/bootstrap.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Search Results</title>
 </head>
-<body>
+
+<body class="bg-dark text-light">
+
+    <div class="container-fluid">
+        <% if (results.length==0) { %>
+            <h1 class="display-3">
+                No user users found with this name
+            </h1>
 
 
-    <% if (results.length == 0) { %>
-     <h1>No user users found with this name</h1>
-    
+            <% } else { %>
+                <h1 class="display-3">Search Results</h1>
+                <% results.forEach(user=> { %>
 
-    <% } else { %>
-        <h1>Search Results</h1>
-        <% results.forEach(user => { %>
 
-            <h2><%= user.user_name %> </h2>
-            <small>
-                <a href="/profile/<%= user.user_name %> ">
-                Go to profile
-                </a>
-            </small>
+                    <div class="card my-4 text-dark" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= user.user_name %>
+                            </h5>
+                            <p class="card-text">
+                                <%= user.email%>
+                            </p>
+                            <a href="/profile/<%= user.user_name %> " class="btn btn-primary">
+                                Go to profile
+                            </a>
+                        </div>
+                    </div>
 
-        <% }) %>
 
-    <% } %>
-     
+                <% }) %>
+
+            <% } %>
+    </div>
+
+
+
 
 
 </body>
+
 </html>
