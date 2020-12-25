@@ -59,10 +59,26 @@ const clean_sql = (str) => {
     });
 }
 
+const separate_post_comments = (results) => {
+
+    const data = {};
+
+    data.post = results[results.length - 1];
+    data.post.likes = data.post.post_likes;
+    data.post.title = data.post.post_title;
+
+    data.comments = results.slice(0, results.length - 1);
+
+    return data;
+
+
+}
+
 
 module.exports = {
     get_current_date: get_current_date,
     get_formated_date: get_formated_date,
     get_age:get_age,
-    clean_sql:clean_sql
+    clean_sql:clean_sql,
+    separate_post_comments:separate_post_comments
 };

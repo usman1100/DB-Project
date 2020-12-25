@@ -33,7 +33,12 @@
             <span>
                 <form action="/like/:postid" method="post">
 
-                    <input type="number" value="<%= post.post_id %>" name="postid" hidden>
+                    <input 
+                        type="number" 
+                        value="<%= post.post_id %>"
+                        name="postid" 
+                        hidden
+                    >
 
                     <button name="postid" class="btn">
                         <i class="fas fa-thumbs-up fa-2x"></i>
@@ -48,6 +53,56 @@
             <h3 class="display-5 ">
                 <%= post.body %>
             </h3>
+        </div>
+
+
+
+        <div class="container my-5">
+
+            <!-- Comment Box -->
+
+            <!-- A dummt text field for getting post id -->
+            <form action="/comment/post" method="POST">
+                <input 
+                    type="text" 
+                    name="postid" 
+                    value="<%= post.post_id %>"
+                    hidden
+                >
+
+                
+                                
+                <label for="body">Write a comment</label>
+                <input 
+                    type="text" 
+                    name="body" 
+                    id="body" 
+                    class="form-control"
+                    required
+                >
+
+                <button type="submit" class="my-2 btn btn-warning">
+                    Comment
+                </button>
+                
+            </form>
+            <!--  -->
+
+
+            <!-- If there are comments then display them -->
+            <% if (comments.length > 0) { %>
+
+                <h1>Comments</h1>
+
+                <% comments.forEach(comment => { %>
+                    <div class="container-fluid border my-3 p-3">
+                        <p><b><%= comment.posted_by %> says</b></p>
+                        <p><%= comment.body %> </p>
+                    </div>
+                <% }) %>
+            <% } %>
+
+            <!--  -->
         </div>
 
     </div>

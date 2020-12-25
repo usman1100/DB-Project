@@ -192,22 +192,76 @@ app.get("/profile/:username", (req, res) => {
 
 app.get("/post/:postid", (req, res)=>{
 
+    // let postid = req.params.postid;
+    // let q = 
+    // `
+    // SELECT * FROM posts 
+    // WHERE post_id = "
+    // `
+    //  + postid + `";`
+
+    // db.query(q, [true], (error, results, fields) => {
+
+    //     return res.render("post.ejs", {post:results[0]});
+
+    // })
+
     let postid = req.params.postid;
     let q = 
     `
-    SELECT * FROM posts 
-    WHERE post_id = "
+    SELECT posted_by , post_id , date_created , body ,null as post_title, NULL as post_likes FROM comments 
+    WHERE post_id = ` + postid
+    +
+    ` UNION ALL `
+    +
     `
-     + postid + `";`
+    SELECT posted_by , post_id , date_created , body, title, likes  FROM posts 
+    WHERE post_id = ` + postid
+    
+    + `;`;
 
-    db.query(q, [true], (error, results, fields) => {
+    db.query(q, [true], (errors, results, fields) => {
 
-        return res.render("post.ejs", {post:results[0]});
+        // console.log(results)
+        console.log(utils.separate_post_comments(results).post);
+        let data = utils.separate_post_comments(results);
+
+        // return res.send(q);
+
+        return res.render("post.ejs", data);
+
 
     })
 
 
 } )
+
+app.post("/comment/:postid", (req, res)=>{
+
+    let body = req.body.body;
+    let postid = req.body.postid;
+
+    let posted_by = req.session.username;
+    let date_created = utils.get_current_date();
+
+    let q = 
+    `
+    INSERT INTO comments(posted_by, post_id, body, date_created)
+    VALUES 
+    (`
+    + `"` + posted_by + `", `
+    + postid + `, `
+    + `"` + body + `", `
+    + `"` + date_created
+    
+    + `");`
+
+    db.query(q);
+
+    res.redirect("/post/" + postid);
+
+
+})
 
 
 app.post("/like/:postid", (req, res) => {
@@ -220,6 +274,7 @@ app.post("/like/:postid", (req, res) => {
     WHERE post_id = 
     `
      + postid + `;`
+
 
      db.query(q);
 
