@@ -192,19 +192,6 @@ app.get("/profile/:username", (req, res) => {
 
 app.get("/post/:postid", (req, res)=>{
 
-    // let postid = req.params.postid;
-    // let q = 
-    // `
-    // SELECT * FROM posts 
-    // WHERE post_id = "
-    // `
-    //  + postid + `";`
-
-    // db.query(q, [true], (error, results, fields) => {
-
-    //     return res.render("post.ejs", {post:results[0]});
-
-    // })
 
     let postid = req.params.postid;
     let q = 
@@ -222,12 +209,8 @@ app.get("/post/:postid", (req, res)=>{
 
     db.query(q, [true], (errors, results, fields) => {
 
-        // console.log(results)
-        console.log(utils.separate_post_comments(results).post);
+        
         let data = utils.separate_post_comments(results);
-
-        // return res.send(q);
-
         return res.render("post.ejs", data);
 
 
@@ -237,7 +220,7 @@ app.get("/post/:postid", (req, res)=>{
 } )
 
 app.post("/comment/:postid", (req, res)=>{
-
+    if(req.session.username){
     let body = req.body.body;
     let postid = req.body.postid;
 
@@ -259,6 +242,12 @@ app.post("/comment/:postid", (req, res)=>{
     db.query(q);
 
     res.redirect("/post/" + postid);
+    }
+
+    else
+    {
+        res.render("error.ejs", {errors:["Youre not logged in"]})
+    }
 
 
 })
