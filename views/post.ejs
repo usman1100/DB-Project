@@ -1,48 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/bootstrap.min.css">
 
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= post.title %> </title>
+    <title>
+        <%= post.title %>
+    </title>
 </head>
+
 <body>
-    
+    <div class="container-fluid">
 
-    <div class="jumbotron">
 
-        <button class="btn btn-light">
-            <a href="/home">
-                Back
-            </a>
-        </button>
+        <div class="jumbotron">
 
-        <h1 class="display-3"><%= post.title %></h1>
-        <h5>Posted on: <%= post.date_created %> </h5>
-        <span>
-            <form action="/like/:postid" method="post">
+            <button class="btn btn-light">
+                <a href="/home">
+                    Back
+                </a>
+            </button>
 
-                <input type="number"
-                        value="<%= post.post_id %>"
-                        name="postid"
-                        hidden>
+            <h1 class="display-3">
+                <%= post.title %>
+            </h1>
+            <h5>Posted on: <%= post.date_created %>
+            </h5>
+            <span>
+                <form action="/like/:postid" method="post">
 
-                <button name="postid" class="btn">
-                    <i class="fas fa-thumbs-up fa-2x"></i>
-                    Likes <%= post.likes %> 
-                </button>
-            </form>
-        </span>
-    </div>
+                    <input type="number" value="<%= post.post_id %>" name="postid" hidden>
 
-    <div class="container mx-5">
+                    <button name="postid" class="btn">
+                        <i class="fas fa-thumbs-up fa-2x"></i>
+                        Likes <%= post.likes %>
+                    </button>
+                </form>
+            </span>
+        </div>
 
-        <h3 class="display-5 "><%= post.body %> </h3>
+
+        <div class="container">
+            <h3 class="display-5 ">
+                <%= post.body %>
+            </h3>
+        </div>
 
     </div>
 
 
 </body>
+
 </html>
