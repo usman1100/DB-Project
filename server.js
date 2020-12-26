@@ -235,6 +235,8 @@ app.post("/comment/:postid", (req, res)=>{
     let posted_by = req.session.username;
     let date_created = utils.get_current_date();
 
+    body = filter.clean(body);
+
     let q = 
     `
     INSERT INTO comments(posted_by, post_id, body, date_created)
