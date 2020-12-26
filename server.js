@@ -7,7 +7,10 @@ let morgan = require("morgan");
 let cookieParser = require("cookie-parser");
 let sqlString = require("sqlstring")
 let utils = require("./utils");
+let Filter = require("bad-words")
 
+
+let filter = new Filter();
 let app = express();
 
 app.use(express.static(__dirname + "/public"));
@@ -47,7 +50,7 @@ app.post("/register/post", (req, res) => {
                 let emails = results.map((user) => user.email);
 
                 if (usernames.includes(username) || emails.includes(email)) {
-                    return res.render("error.ejs", { errors: [""] });
+                    return res.render("error.ejs", { errors: ["Username or email already in use"] });
                 }
             }
 
@@ -131,7 +134,12 @@ app.post("/create_post/post", (req, res) => {
     let likes = 0;
 
     let body = String(req.body.body);
+    body = filter.clean(body);
+
+    
     let title = String(req.body.title);
+    title = filter.clean(title);
+
 
     let q =
         `INSERT INTO posts(posted_by, date_created, likes, body, title)
