@@ -68,6 +68,7 @@ const separate_post_comments = (results) => {
     data.post.title = data.post.post_title;
 
     data.comments = results.slice(0, results.length - 1);
+    data.comments.reverse();
 
     return data;
 
