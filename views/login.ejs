@@ -1,29 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
-    
+    <head>
+        <meta charset="UTF-8" />
+        <link
+            rel="stylesheet"
+            href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+            integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="/bootstrap.min.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login</title>
+    </head>
 
-    <form action="/login/post" method="post">
+    <body>
+        <div class="container my-5">
+            <form action="/login/post" method="post">
+                <!-- User Name -->
+                <label for="user_name">
+                    User Name
+                </label>
+                <input
+                    class="form-control"
+                    type="text"
+                    id="user_name"
+                    name="user_name"
+                    required
+                    max="10"
+                />
+                <br />
 
-        <!-- User Name -->
-        <label for="user_name">User Name</label>
-        <input type="text" id="user_name" name="user_name" required max="10"/>
-        <br />
+                <!-- Password -->
 
-        <!-- Password -->
+                <label for="password">Password</label>
+                <input
+                    class="form-control"
+                    type="password"
+                    id="password"
+                    name="password"
+                    required
+                    max="20"
+                />
+                <br />
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required max="20"/>
-        <br />
-        
-        <button type="submit">Login</button>
-        
-    </form>
-
-</body>
+                <button class="btn btn-primary" type="submit">
+                    Login
+                </button>
+            </form>
+        </div>
+    </body>
 </html>

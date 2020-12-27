@@ -200,7 +200,7 @@ app.get("/profile/:username", (req, res) => {
 
 app.get("/post/:postid", (req, res)=>{
 
-
+    if(req.session.username){
     let postid = req.params.postid;
     let q = 
     `
@@ -223,6 +223,9 @@ app.get("/post/:postid", (req, res)=>{
 
 
     })
+    }
+    else
+        return res.render("error.ejs", {errors:["Youre not logged in"]})
 
 
 } )
